@@ -24,7 +24,7 @@ def add(description: str, priority: str):
     return True, 'Task added successfully!'
 
 
-@click.command('complete', help='Task ID')
+@click.command('complete', help='Mark task by ID with DONE')
 @click.argument('id')
 def complete(id: int):
     task = database.find(id)
@@ -40,7 +40,11 @@ def complete(id: int):
 
 
 @click.command('delete')
-def delete(): pass
+@click.argument('id')
+def delete(id: int):
+    database.deleteById(id)
+
+    return True, 'Task deleted'
 
 
 @click.command('list')
