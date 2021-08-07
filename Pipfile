@@ -4,6 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+autopep8 = "*"
+click = "*"
+tabulate = "*"
+pysondb = "*"
 
 [dev-packages]
 
