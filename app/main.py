@@ -28,9 +28,14 @@ def get_age(total_seconds: int):
     return template_time(days, hours, minutes)
 
 
-@click.command('add')
-@click.argument('description')
-@click.option('--priority', '-p', default='NORMAL', help='Priority task [LOW, NORMAL, HIGH]')
+@click.group()
+def cli():
+    pass
+
+
+@cli.command('add')
+@cli.argument('description')
+@cli.option('--priority', '-p', default='NORMAL', help='Priority task [LOW, NORMAL, HIGH]')
 def add(description: str, priority: str):
     task = {
         'description': description,
@@ -45,8 +50,8 @@ def add(description: str, priority: str):
     return True, 'Task added successfully!'
 
 
-@click.command('complete', help='Mark task by ID with DONE')
-@click.argument('id')
+@cli.command('complete', help='Mark task by ID with DONE')
+@cli.argument('id')
 def complete(id: int):
     task = database.find(id)
     task_done = {
@@ -60,15 +65,15 @@ def complete(id: int):
     return True, 'Task completed successfully'
 
 
-@click.command('delete')
-@click.argument('id')
+@cli.command('delete')
+@cli.argument('id')
 def delete(id: int):
     database.deleteById(id)
 
     return True, 'Task deleted'
 
 
-@click.command('list')
+@cli.command('list')
 def list():
     tasks = database.getBy({'status': 'pending'})
 
@@ -83,9 +88,9 @@ def list():
     click.echo(new_tasks)
 
 
-@click.command('next')
+@cli.command('next')
 def next(): pass
 
 
 if __name__ == '__main__':
-    list()
+    cli()
