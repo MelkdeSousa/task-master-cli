@@ -2,9 +2,30 @@ import click
 from tabulate import tabulate
 from datetime import datetime
 from pysondb import db
+import math
 
 
 database = db.getDb('todo.db.json')
+
+
+def template_time(days=0, hours=0, minutes=0):
+    template_days = f'{days} days' if days > 0 else ""
+    template_hours = f'{hours} hours' if hours > 0 else ""
+    template_minutes = f'{" and " if template_hours  else ""}{minutes} minutes' if minutes > 0 else ""
+
+    return f'{f"{template_days}, " if template_days else ""}{f"{template_hours}" if template_hours else ""}{template_minutes}'
+
+
+def get_age(total_seconds: int):
+    SECONDS_IN_MINUTES = 60
+    SECONDS_IN_HOUR = 60 * 60
+    SECONDS_IN_DAY = SECONDS_IN_HOUR * 24
+
+    days = math.floor(total_seconds // SECONDS_IN_DAY)
+    hours = math.floor((total_seconds - (days * SECONDS_IN_DAY)) // SECONDS_IN_HOUR)
+    minutes = math.floor((total_seconds - (days * SECONDS_IN_DAY) - (hours * SECONDS_IN_HOUR)) // SECONDS_IN_MINUTES)
+
+    return template_time(days, hours, minutes)
 
 
 @click.command('add')
@@ -48,7 +69,18 @@ def delete(id: int):
 
 
 @click.command('list')
-def list(): pass
+def list():
+    tasks = database.getBy({'status': 'pending'})
+
+    new_tasks = [
+        {
+            **task,
+            'age': get_age((datetime.now() - datetime.fromisoformat(task['created_at'])).total_seconds())
+        }
+        for task in tasks
+    ]
+
+    click.echo(new_tasks)
 
 
 @click.command('next')
@@ -56,4 +88,4 @@ def next(): pass
 
 
 if __name__ == '__main__':
-    pass
+    list()
