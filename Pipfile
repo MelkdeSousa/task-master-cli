@@ -8,6 +8,7 @@ autopep8 = "*"
 click = "*"
 tabulate = "*"
 pysondb = "*"
+string-color = "*"
 
 [dev-packages]
 
