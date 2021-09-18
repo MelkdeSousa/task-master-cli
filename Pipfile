@@ -4,13 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-autopep8 = "*"
 click = "*"
 tabulate = "*"
 pysondb = "*"
 string-color = "*"
+task-master-cli = {editable = true, path = "."}
+pyfiglet = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"

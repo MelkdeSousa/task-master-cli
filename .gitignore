@@ -2,3 +2,5 @@ __pycache__/
 *.lock
 
 *.db*
+*.egg-info
+*.toml
