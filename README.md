@@ -2,6 +2,9 @@
 
 > Your CLI to manager Your tasks
 
+Challenge created by [DevChallenge ![Logo DevChallenge](https://www.devchallenge.com.br/favicon.ico)](https://www.devchallenge.com.br/challenges/607785ac40398e001f6046c6/details)
+
+
 <div align="center">
 
 ![banner](.github/banner.png)
@@ -60,6 +63,7 @@
 
 <div align="center">
 
-Developed by **Melk de Sousa** ✌️😎
+![MelkdeSousa](https://img.shields.io/static/v1?label=Powered%20by&message=Melk%20de%20Sousa&color=blue&style=flat-square&logo=github)
+![DevChallenge](https://img.shields.io/static/v1?label=Proposed%20by&message=DevChallenge&color=yellow&style=flat-square)
 
 </div>
